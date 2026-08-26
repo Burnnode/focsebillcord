@@ -24,6 +24,8 @@ const els = {
   composer: $('#composer'),
   msgInput: $('#msgInput'),
   catBtn: $('#catBtn'),
+  catsToggle: $('#catsToggle'),
+  gateCats: $('#gateCats'),
 };
 
 const NAME_KEY = 'focsecord:name';
@@ -50,6 +52,31 @@ els.gateForm.addEventListener('submit', (e) => {
   localStorage.setItem(NAME_KEY, name);
   enterRoom();
 });
+
+/* ---------- gatos: demitir e recontratar ---------- */
+
+const CATS_KEY = 'focsecord:gatos';
+
+function catsOff() {
+  return localStorage.getItem(CATS_KEY) === '0';
+}
+
+function applyCats() {
+  const off = catsOff();
+  document.body.classList.toggle('sem-gatos', off);
+  els.catsToggle.classList.toggle('off', off);
+  els.catsToggle.title = off ? 'Recontratar os gatos' : 'Demitir os gatos';
+  els.gateCats.textContent = off ? 'recontratar os gatos' : 'demitir os gatos';
+}
+
+function toggleCats() {
+  localStorage.setItem(CATS_KEY, catsOff() ? '1' : '0');
+  applyCats();
+}
+
+els.catsToggle.addEventListener('click', toggleCats);
+els.gateCats.addEventListener('click', toggleCats);
+applyCats();
 
 els.leaveBtn.addEventListener('click', () => {
   localStorage.removeItem(NAME_KEY);
