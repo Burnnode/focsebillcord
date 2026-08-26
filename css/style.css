@@ -11,10 +11,11 @@
   --text: #f4f4f7;
   --text-2: rgba(244, 244, 247, 0.6);
   --text-3: rgba(244, 244, 247, 0.35);
-  --accent: #5865f2;
-  --accent-soft: rgba(88, 101, 242, 0.18);
-  --accent-btn: linear-gradient(180deg, #6d78ff 0%, #4753e6 100%);
-  --link: #a5adff;
+  --accent: #f2691e;
+  --accent-soft: rgba(242, 105, 30, 0.18);
+  --accent-btn: linear-gradient(180deg, #ff9440 0%, #e05f12 100%);
+  --btn-text: #2a1404;
+  --link: #ffab70;
   --r-panel: 24px;
   --r-item: 14px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -38,24 +39,158 @@ body {
 
 body.in-app { overflow: hidden; }
 
-/* ---------- fundo: aurora + grao ---------- */
+/* ---------- fundo: modo powerpoint (5 slides, 40s de ciclo, 8s cada) ---------- */
 
-.aurora {
+.ppt {
   position: fixed;
-  inset: -20%;
+  inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(42rem 42rem at 16% 18%, rgba(88, 101, 242, 0.16), transparent 62%),
-    radial-gradient(50rem 46rem at 85% 28%, rgba(135, 125, 255, 0.10), transparent 64%),
-    radial-gradient(56rem 50rem at 50% 102%, rgba(70, 80, 230, 0.11), transparent 60%);
-  will-change: transform;
-  animation: aurora-drift 70s var(--ease) infinite alternate;
 }
 
-@keyframes aurora-drift {
-  from { transform: translate3d(-2%, -1%, 0) scale(1); }
-  to   { transform: translate3d(2%, 2%, 0) scale(1.06); }
+.ppt .slide {
+  position: absolute;
+  inset: -8%;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* slide 1: por do sol da raposa (transicao: fade) */
+.slide-1 {
+  background:
+    radial-gradient(46rem 42rem at 18% 22%, rgba(242, 105, 30, 0.26), transparent 62%),
+    radial-gradient(50rem 44rem at 82% 84%, rgba(255, 150, 70, 0.14), transparent 64%);
+  animation: ppt-fade 40s linear infinite;
+}
+
+/* slide 2: floresta do cabelo verde (transicao: empurrao) */
+.slide-2 {
+  background:
+    radial-gradient(46rem 42rem at 78% 20%, rgba(120, 190, 80, 0.22), transparent 60%),
+    radial-gradient(44rem 40rem at 22% 86%, rgba(60, 140, 50, 0.16), transparent 64%);
+  animation: ppt-push 40s linear infinite 8s;
+}
+
+/* slide 3: listras diagonais cafonas (transicao: circulo abrindo) */
+.slide-3 {
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 140, 60, 0.09) 0 42px, transparent 42px 108px),
+    radial-gradient(50rem 44rem at 50% 55%, rgba(242, 105, 30, 0.14), transparent 66%);
+  animation: ppt-wipe 40s linear infinite 16s;
+}
+
+/* slide 4: bolinhas (transicao: zoom girando) */
+.slide-4 {
+  background-image:
+    radial-gradient(rgba(120, 190, 80, 0.13) 9px, transparent 10px),
+    radial-gradient(rgba(255, 150, 70, 0.11) 7px, transparent 8px),
+    radial-gradient(38rem 36rem at 50% 50%, rgba(242, 105, 30, 0.10), transparent 65%);
+  background-size: 110px 110px, 74px 74px, auto;
+  background-position: 0 0, 37px 53px, center;
+  animation: ppt-zoom 40s linear infinite 24s;
+}
+
+/* slide 5: arco-iris neon (transicao: subindo) */
+.slide-5 {
+  background:
+    linear-gradient(115deg,
+      rgba(255, 46, 46, 0.16) 0 16%,
+      rgba(255, 154, 0, 0.16) 16% 32%,
+      rgba(255, 230, 0, 0.14) 32% 48%,
+      rgba(46, 255, 94, 0.13) 48% 64%,
+      rgba(0, 179, 255, 0.15) 64% 82%,
+      rgba(138, 77, 255, 0.16) 82% 100%),
+    radial-gradient(44rem 40rem at 50% 50%, rgba(255, 255, 255, 0.05), transparent 70%);
+  animation: ppt-rise 40s linear infinite 32s;
+}
+
+@keyframes ppt-fade {
+  0% { opacity: 0; }
+  3% { opacity: 1; }
+  20% { opacity: 1; }
+  24% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+@keyframes ppt-push {
+  0% { opacity: 1; transform: translateX(100%); }
+  3% { opacity: 1; transform: none; }
+  20% { opacity: 1; transform: none; }
+  24% { opacity: 0; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+
+@keyframes ppt-wipe {
+  0% { opacity: 1; clip-path: circle(0% at 50% 50%); }
+  4% { opacity: 1; clip-path: circle(75% at 50% 50%); }
+  20% { opacity: 1; clip-path: circle(75% at 50% 50%); }
+  24% { opacity: 0; clip-path: circle(75% at 50% 50%); }
+  100% { opacity: 0; clip-path: circle(75% at 50% 50%); }
+}
+
+@keyframes ppt-zoom {
+  0% { opacity: 0; transform: scale(0.15) rotate(-10deg); }
+  3.5% { opacity: 1; transform: none; }
+  20% { opacity: 1; transform: none; }
+  24% { opacity: 0; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+
+@keyframes ppt-rise {
+  0% { opacity: 0; transform: translateY(55%); }
+  3% { opacity: 1; transform: none; }
+  20% { opacity: 1; transform: none; }
+  24% { opacity: 0; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+
+/* ---------- nyan cat (gato real, rastro neon) ---------- */
+
+.nyan {
+  position: fixed;
+  top: 24vh;
+  left: 0;
+  z-index: 65;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  transform: translateX(-60vw);
+  animation: nyan-fly 21s linear infinite 3s;
+  filter: drop-shadow(0 0 16px rgba(255, 105, 200, 0.3));
+}
+
+.nyan::before {
+  content: "";
+  width: 42vw;
+  height: 52px;
+  margin-right: -10px;
+  border-radius: 999px 0 0 999px;
+  opacity: 0.8;
+  background: linear-gradient(180deg,
+    #ff2e2e 0 16.6%,
+    #ff9a00 16.6% 33.3%,
+    #ffe600 33.3% 50%,
+    #2eff5e 50% 66.6%,
+    #00b3ff 66.6% 83.3%,
+    #8a4dff 83.3% 100%);
+}
+
+.nyan img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.35);
+}
+
+@keyframes nyan-fly {
+  0%   { transform: translateX(-60vw) translateY(0); }
+  25%  { transform: translateX(-10vw) translateY(-16px); }
+  50%  { transform: translateX(40vw) translateY(12px); }
+  75%  { transform: translateX(90vw) translateY(-14px); }
+  100% { transform: translateX(140vw) translateY(0); }
 }
 
 .grain {
@@ -97,13 +232,13 @@ body.in-app { overflow: hidden; }
   width: 88px;
   height: 88px;
   object-fit: contain;
-  filter: drop-shadow(0 8px 22px rgba(88, 101, 242, 0.45));
+  filter: drop-shadow(0 8px 22px rgba(242, 105, 30, 0.45));
 }
 
 .mark-face-sm {
   width: 34px;
   height: 34px;
-  filter: drop-shadow(0 2px 8px rgba(88, 101, 242, 0.4));
+  filter: drop-shadow(0 2px 8px rgba(242, 105, 30, 0.4));
 }
 
 /* ---------- gatos (setor de RH) ---------- */
@@ -255,9 +390,9 @@ body.in-app { overflow: hidden; }
 
 .input:focus {
   outline: none;
-  border-color: rgba(88, 101, 242, 0.7);
+  border-color: rgba(242, 105, 30, 0.7);
   background: rgba(255, 255, 255, 0.07);
-  box-shadow: 0 0 0 4px rgba(88, 101, 242, 0.2);
+  box-shadow: 0 0 0 4px rgba(242, 105, 30, 0.2);
 }
 
 .field-error {
@@ -285,10 +420,11 @@ body.in-app { overflow: hidden; }
 
 .btn-primary {
   background: var(--accent-btn);
-  color: #fff;
+  color: var(--btn-text);
+  font-weight: 700;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    0 10px 30px rgba(88, 101, 242, 0.3);
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 10px 30px rgba(242, 105, 30, 0.3);
 }
 
 .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
@@ -300,7 +436,7 @@ body.in-app { overflow: hidden; }
 .btn-ghost:focus-visible,
 .composer-cat:focus-visible,
 .composer-send:focus-visible {
-  outline: 2px solid rgba(88, 101, 242, 0.65);
+  outline: 2px solid rgba(242, 105, 30, 0.7);
   outline-offset: 2px;
 }
 
@@ -417,10 +553,10 @@ body.in-app { overflow: hidden; }
   display: grid;
   place-items: center;
   font-size: 38px;
-  color: #9aa4ff;
+  color: #ffb27a;
   background: var(--accent-soft);
-  border: 1px solid rgba(88, 101, 242, 0.35);
-  box-shadow: 0 0 50px rgba(88, 101, 242, 0.25);
+  border: 1px solid rgba(242, 105, 30, 0.35);
+  box-shadow: 0 0 50px rgba(242, 105, 30, 0.25);
   margin-bottom: 14px;
 }
 
@@ -574,8 +710,8 @@ body.in-app { overflow: hidden; }
 }
 
 .composer:focus-within {
-  border-color: rgba(88, 101, 242, 0.6);
-  box-shadow: 0 0 0 4px rgba(88, 101, 242, 0.16);
+  border-color: rgba(242, 105, 30, 0.65);
+  box-shadow: 0 0 0 4px rgba(242, 105, 30, 0.16);
 }
 
 /* depois do :focus-within pra vencer na cascata quando o envio falha */
@@ -612,7 +748,7 @@ body.in-app { overflow: hidden; }
   transition: color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.2s var(--ease);
 }
 
-.composer-cat:hover { color: var(--link); border-color: rgba(88, 101, 242, 0.5); }
+.composer-cat:hover { color: var(--link); border-color: rgba(242, 105, 30, 0.55); }
 .composer-cat:active { transform: scale(0.92); }
 
 .composer-send {
@@ -622,7 +758,7 @@ body.in-app { overflow: hidden; }
   border: none;
   border-radius: 999px;
   background: var(--accent-btn);
-  color: #fff;
+  color: var(--btn-text);
   font-size: 18px;
   display: grid;
   place-items: center;
@@ -658,7 +794,9 @@ body.in-app { overflow: hidden; }
 /* ---------- movimento reduzido ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .aurora { animation: none; }
+  .ppt .slide { animation: none; opacity: 0; }
+  .ppt .slide-1 { opacity: 1; }
+  .nyan { display: none; }
   .gate-card, .app, .msg { animation: none; }
   .sk { animation: none; }
   .cats-rail img { animation: none; }
