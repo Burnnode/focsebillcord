@@ -4,11 +4,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>focsecord</title>
-  <meta name="description" content="Sala privada com call e chat em tempo real. Sem cadastro: digita o nome e entra.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2312121a'/%3E%3Ccircle cx='32' cy='32' r='13' fill='%230a84ff'/%3E%3C/svg%3E">
+  <meta name="description" content="Tipo o Discord, só que pior. Call e chat em tempo real, sem cadastro: digita o nome e entra.">
+  <meta property="og:title" content="focsecord">
+  <meta property="og:description" content="Tipo o Discord, só que pior. Digita o nome e entra.">
+  <meta property="og:image" content="https://burnnode.github.io/focsebillcord/assets/icone-app.png">
+  <link rel="icon" type="image/png" href="assets/icone-app.png">
+  <link rel="apple-touch-icon" href="assets/icone-app.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -17,21 +21,33 @@
   <div class="aurora" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
+  <!-- funcionarios do mes -->
+  <div class="cats-rail cats-left" aria-hidden="true">
+    <img src="https://cataas.com/cat/gif?width=200&r=1" alt="" onerror="this.style.display='none'">
+    <img src="https://cataas.com/cat/gif?width=200&r=2" alt="" onerror="this.style.display='none'">
+  </div>
+  <div class="cats-rail cats-right" aria-hidden="true">
+    <img src="https://cataas.com/cat/gif?width=200&r=3" alt="" onerror="this.style.display='none'">
+    <img src="https://cataas.com/cat/gif?width=200&r=4" alt="" onerror="this.style.display='none'">
+  </div>
+  <img class="cat-walker" src="https://cataas.com/cat/gif?width=160&r=5" alt="" aria-hidden="true" onerror="this.style.display='none'">
+
   <!-- ============ PORTAO: nome e entra ============ -->
   <section id="gate" class="gate">
     <div class="gate-card glass">
-      <div class="mark" aria-hidden="true"><span class="mark-dot"></span></div>
+      <img class="cat-peek" src="https://cataas.com/cat/gif?width=140&r=0" alt="" aria-hidden="true" onerror="this.style.display='none'">
+      <img class="mark-face" src="assets/icone.png" alt="Logo do focsecord: um careca de óculos sorrindo">
       <h1 class="wordmark">focsecord<span class="accent">.</span></h1>
-      <p class="gate-sub">Sala privada com call e chat ao vivo. Sem cadastro.</p>
+      <p class="gate-sub">Tipo o Discord, só que pior. Sem cadastro.</p>
 
       <form id="gateForm" autocomplete="off">
         <label for="nameInput" class="field-label">Teu nome</label>
-        <input id="nameInput" class="input" type="text" maxlength="24" spellcheck="false" placeholder="como a galera te chama" required>
+        <input id="nameInput" class="input" type="text" maxlength="24" spellcheck="false" placeholder="como te chamam na rua" required>
         <p id="gateError" class="field-error" hidden>Coloca um nome com pelo menos 2 letras.</p>
-        <button type="submit" class="btn btn-primary btn-lg">Entrar na sala</button>
+        <button type="submit" class="btn btn-primary btn-lg">Bora entrar</button>
       </form>
 
-      <p class="gate-foot">Projeto de portfólio, código aberto no GitHub.</p>
+      <p class="gate-foot">Projeto de portfólio. Os gatos são funcionários.</p>
     </div>
   </section>
 
@@ -40,7 +56,7 @@
 
     <header class="topbar glass">
       <div class="brand">
-        <div class="mark mark-sm" aria-hidden="true"><span class="mark-dot"></span></div>
+        <img class="mark-face mark-face-sm" src="assets/icone.png" alt="">
         <span class="brand-name">focsecord</span>
       </div>
       <div class="topbar-right">
@@ -60,12 +76,12 @@
         <div id="prejoin" class="prejoin">
           <div class="prejoin-icon" aria-hidden="true"><i class="ph ph-headset"></i></div>
           <h2 class="prejoin-title">Lounge</h2>
-          <p class="prejoin-sub">Call de voz e vídeo da sala.</p>
+          <p class="prejoin-sub">Call de voz e vídeo. Os gatos não participam.</p>
           <button id="joinCallBtn" class="btn btn-primary btn-lg">
             <i class="ph ph-phone-call" aria-hidden="true"></i>
             Entrar na call
           </button>
-          <p class="prejoin-note">Quem abrir a sala primeiro faz um login rápido com Google pra liberar. Os próximos entram direto.</p>
+          <p class="prejoin-note">Quem abrir a sala primeiro faz um login rápido com Google pra liberar (culpa do Jitsi, não minha). Os próximos entram direto.</p>
         </div>
         <div id="jitsiMount" class="jitsi-mount" hidden></div>
       </section>
@@ -82,7 +98,7 @@
           </div>
           <div id="chatEmpty" class="chat-empty" hidden>
             <i class="ph ph-chat-circle" aria-hidden="true"></i>
-            <p>Nenhuma mensagem ainda.<br>Começa tu.</p>
+            <p>Ninguém disse nada ainda.<br>Quebra o gelo aí.</p>
           </div>
           <div id="chatOffline" class="chat-offline" hidden>
             <i class="ph ph-plugs" aria-hidden="true"></i>
@@ -90,7 +106,10 @@
           </div>
         </div>
         <form id="composer" class="composer" autocomplete="off">
-          <input id="msgInput" class="composer-input" type="text" maxlength="500" placeholder="Manda uma mensagem" aria-label="Mensagem">
+          <input id="msgInput" class="composer-input" type="text" maxlength="500" placeholder="Fala algo, cola um link, um gif..." aria-label="Mensagem">
+          <button type="button" id="catBtn" class="composer-cat" title="Manda um gato aleatório">
+            <i class="ph ph-cat" aria-hidden="true"></i>
+          </button>
           <button type="submit" class="composer-send" title="Enviar">
             <i class="ph ph-paper-plane-right" aria-hidden="true"></i>
           </button>
