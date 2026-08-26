@@ -138,7 +138,7 @@ function renderAvatars(people) {
   }
   const n = people.length;
   els.presenceCount.textContent = n + ' online';
-  els.chatCount.textContent = n === 1 ? 'so tu por aqui' : n + ' na sala';
+  els.chatCount.textContent = n === 1 ? 'só tu por aqui' : n + ' na sala';
 }
 
 function hueFor(name) {
@@ -191,7 +191,7 @@ function addMessage(m, live) {
 
   const author = document.createElement('span');
   author.className = 'msg-author';
-  author.textContent = m.author || 'alguem';
+  author.textContent = m.author || 'alguém';
   author.style.color = `hsl(${hueFor(m.author || '')} 50% 74%)`;
 
   const time = document.createElement('span');
