@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>focsecord</title>
+  <meta name="description" content="Sala privada com call e chat em tempo real. Sem cadastro: digita o nome e entra.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2312121a'/%3E%3Ccircle cx='32' cy='32' r='13' fill='%230a84ff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ PORTAO: nome e entra ============ -->
+  <section id="gate" class="gate">
+    <div class="gate-card glass">
+      <div class="mark" aria-hidden="true"><span class="mark-dot"></span></div>
+      <h1 class="wordmark">focsecord<span class="accent">.</span></h1>
+      <p class="gate-sub">Sala privada com call e chat ao vivo. Sem cadastro.</p>
+
+      <form id="gateForm" autocomplete="off">
+        <label for="nameInput" class="field-label">Teu nome</label>
+        <input id="nameInput" class="input" type="text" maxlength="24" spellcheck="false" placeholder="como a galera te chama" required>
+        <p id="gateError" class="field-error" hidden>Coloca um nome com pelo menos 2 letras.</p>
+        <button type="submit" class="btn btn-primary btn-lg">Entrar na sala</button>
+      </form>
+
+      <p class="gate-foot">Projeto de portfólio, código aberto no GitHub.</p>
+    </div>
+  </section>
+
+  <!-- ============ SALA: call + chat ============ -->
+  <div id="app" class="app" hidden>
+
+    <header class="topbar glass">
+      <div class="brand">
+        <div class="mark mark-sm" aria-hidden="true"><span class="mark-dot"></span></div>
+        <span class="brand-name">focsecord</span>
+      </div>
+      <div class="topbar-right">
+        <div id="presenceAvatars" class="avatars" aria-label="Quem está online"></div>
+        <span id="presenceCount" class="presence-count">1 online</span>
+        <span class="topbar-sep" aria-hidden="true"></span>
+        <button id="leaveBtn" class="btn-ghost" title="Trocar de nome">
+          <i class="ph ph-sign-out" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="room">
+
+      <!-- painel da call -->
+      <section id="callPanel" class="call glass" aria-label="Call da sala">
+        <div id="prejoin" class="prejoin">
+          <div class="prejoin-icon" aria-hidden="true"><i class="ph ph-headset"></i></div>
+          <h2 class="prejoin-title">Lounge</h2>
+          <p class="prejoin-sub">Call de voz e vídeo da sala.</p>
+          <button id="joinCallBtn" class="btn btn-primary btn-lg">
+            <i class="ph ph-phone-call" aria-hidden="true"></i>
+            Entrar na call
+          </button>
+          <p class="prejoin-note">Quem abrir a sala primeiro faz um login rápido com Google pra liberar. Os próximos entram direto.</p>
+        </div>
+        <div id="jitsiMount" class="jitsi-mount" hidden></div>
+      </section>
+
+      <!-- chat -->
+      <aside class="chat glass" aria-label="Chat da sala">
+        <div class="chat-head">
+          <span class="chat-title">Chat</span>
+          <span id="chatCount" class="chat-count"></span>
+        </div>
+        <div id="messages" class="messages">
+          <div id="chatSkeleton" class="chat-skeleton" aria-hidden="true">
+            <span class="sk sk-1"></span><span class="sk sk-2"></span><span class="sk sk-3"></span>
+          </div>
+          <div id="chatEmpty" class="chat-empty" hidden>
+            <i class="ph ph-chat-circle" aria-hidden="true"></i>
+            <p>Nenhuma mensagem ainda.<br>Começa tu.</p>
+          </div>
+          <div id="chatOffline" class="chat-offline" hidden>
+            <i class="ph ph-plugs" aria-hidden="true"></i>
+            <p>Chat fora do ar por enquanto. A call segue normal.</p>
+          </div>
+        </div>
+        <form id="composer" class="composer" autocomplete="off">
+          <input id="msgInput" class="composer-input" type="text" maxlength="500" placeholder="Manda uma mensagem" aria-label="Mensagem">
+          <button type="submit" class="composer-send" title="Enviar">
+            <i class="ph ph-paper-plane-right" aria-hidden="true"></i>
+          </button>
+        </form>
+      </aside>
+
+    </main>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
