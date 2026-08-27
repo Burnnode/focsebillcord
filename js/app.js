@@ -1,5 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-import { SUPABASE_URL, SUPABASE_KEY, JITSI_ROOM } from './config.js';
+import { SUPABASE_URL, SUPABASE_KEY, JITSI_DOMAIN, JITSI_ROOM } from './config.js';
 
 const $ = (s) => document.querySelector(s);
 
@@ -408,7 +408,7 @@ async function joinCall() {
     els.prejoin.hidden = true;
     els.jitsiMount.hidden = false;
 
-    jitsiApi = new window.JitsiMeetExternalAPI('meet.jit.si', {
+    jitsiApi = new window.JitsiMeetExternalAPI(JITSI_DOMAIN, {
       roomName: JITSI_ROOM,
       parentNode: els.jitsiMount,
       width: '100%',
@@ -424,6 +424,9 @@ async function joinCall() {
 
     jitsiApi.addListener('videoConferenceLeft', leaveCall);
     jitsiApi.addListener('readyToClose', leaveCall);
+    // diagnostico no console: da pra ver de fora se a conferencia conectou
+    jitsiApi.addListener('videoConferenceJoined', () => console.info('focsecord: call conectada'));
+    jitsiApi.addListener('errorOccurred', (e) => console.warn('focsecord: erro na call', e?.error?.name || e));
   } catch {
     leaveCall();
   }
@@ -445,7 +448,7 @@ function loadJitsiScript() {
   if (jitsiScriptPromise) return jitsiScriptPromise;
   jitsiScriptPromise = new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = 'https://meet.jit.si/external_api.js';
+    s.src = 'https://' + JITSI_DOMAIN + '/external_api.js';
     s.onload = resolve;
     s.onerror = () => { jitsiScriptPromise = null; reject(new Error('jitsi script')); };
     document.head.appendChild(s);
